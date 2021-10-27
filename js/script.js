@@ -6,11 +6,24 @@ let box = 32;
     que quando pintadas, criam os quadradinhos */
 let cobrinha = [];
 cobrinha[0] = {
-    x: 8 * box,
-    y: 8 * box
-}
-let diracao = "right"
+  x: 8 * box,
+  y: 8 * box,
+};
+let diracao = "right";
 let rato = {
-    x: Math.floor(Math.random() * 15 + 1) * box,
-    y: Math.floor(Math.random() * 15 + 1) * box
+  x: Math.floor(Math.random() * 15 + 1) * box,
+  y: Math.floor(Math.random() * 15 + 1) * box,
+};
+
+function criarBackground() {
+  contexto.fillStyle = "lightgreen";
+  // Desenha o retângulo usando x e y e a largura e a altura setadas abaixo
+  contexto.fillRect(0, 0, 16 * box, 16 * box);
+}
+
+function criarCobrinha() {
+  for (let i = 0; i < cobrinha.length; i++) {
+    contexto.fillStyle = "green";
+    contexto.fillRect(cobrinha[i].x, cobrinha[i].y, box, box);
+  }
 }
