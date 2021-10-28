@@ -10,7 +10,7 @@ cobrinha[0] = {
   y: 8 * box,
 };
 let direcao = "right";
-let rato = {
+let ratinho = {
   x: Math.floor(Math.random() * 15 + 1) * box,
   y: Math.floor(Math.random() * 15 + 1) * box,
 };
@@ -28,19 +28,41 @@ function criarCobrinha() {
   }
 }
 
+function desenharRatinho() {
+   context.fillStyle = "red";
+   context.fillRect(ratinho.x, ratinho.y, box, box);
+}
+
+// Quando um evento acontece, detecte e chama uma função
+document.addEventListener('keydown', atualizar);
+
 function atualizar(event) {
   if (event.keyCode == 37 && direcao != "right") direcao = "left";
   if (event.keyCode == 38 && direcao != "down") direcao = "up";
+  if (event.keyCode == 39 && direcao != "left") direcao = "right";
+  if (event.keyCode == 40 && direcao != "up") direcao = "down";
 }
 
 function iniciarJogo() {
+   if(cobrinha[0].x > 15 * box && direcao == "right") cobrinha[0].x = 0;
+   if(cobrinha[0].x < 0 * box && direcao == "left") cobrinha[0].x = 16 * box;
+   if(cobrinha[0].y > 15 * box && direcao == "down") cobrinha[0].y = 0;
+   if(cobrinha[0].y < 0 * box && direcao == "up") cobrinha[0].y = 16 * box;
+
+   criarBackground();
+  criarCobrinha();
+  desenharRatinho();
+
   let cobrinhaX = cobrinha[0].x;
   let cobrinhaY = cobrinha[0].y;
 
   if (direcao == "right") cobrinhaX += box;
   if (direcao == "left") cobrinhaX -= box;
   if (direcao == "up") cobrinhaY -= box;
-  if (direcao == "down") cobrinhaX += box;
+  if (direcao == "down") cobrinhaY += box;
+  
+  // pop() - Tira o último elemento da lista
+  cobrinha.pop();
 
   let novaCabeca = {
     x: cobrinhaX,
@@ -50,8 +72,7 @@ function iniciarJogo() {
   // unshift - Adiciona uma nova cabeça como primeiro quadrinho na cobrinha
   cobrinha.unshift(novaCabeca);
 
-  criarBackground();
-  criarCobrinha();
+  
 }
 
 let jogo = setInterval(iniciarJogo, 100);
