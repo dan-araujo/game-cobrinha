@@ -49,6 +49,13 @@ function iniciarJogo() {
   if (cobrinha[0].y > 15 * box && direcao == "down") cobrinha[0].y = 0;
   if (cobrinha[0].y < 0 * box && direcao == "up") cobrinha[0].y = 16 * box;
 
+  for (let i = 1; i < cobrinha.length; i++) {
+    if (cobrinha[0].x == cobrinha[i].x && cobrinha[0].y == cobrinha[i].y) {
+      clearInterval(jogo);
+      alert("Gamer Over! :(");
+    }
+  }
+
   criarBackground();
   criarCobrinha();
   desenharRatinho();
